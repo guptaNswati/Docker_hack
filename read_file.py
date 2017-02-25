@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 import re
+import codecs
+from meaningful_info import meaningful_info
 """
 Read dockerfile created by dummper and tokenize it.
 """
@@ -18,11 +20,16 @@ def read_lines(filename=""):
                     word = str(word[0]).split(' ')
                     if len(word) > 1:
                         for sub_words in word:
+                            sub_words = sub_words.replace("\\t", "")
+                            if sub_words[0] == "-":
+                                continue
                             if sub_words is not None:
                                 install_dic[sub_words] = install_dic.get(sub_words, 0) + 1
-
-        for key in install_dic:
-            print(key, install_dic[key])
+#        for key in install_dic:
+#            print(key, install_dic[key])
+        meaningful_info(install_dic)
+#        return (install_dic);
+            # have this function return the dictionary
 
 if __name__ == "__main__":
     read_lines("/tmp/test")
