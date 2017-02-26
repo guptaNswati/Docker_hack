@@ -7,8 +7,8 @@ import os
 Read dockerfile created by dummper and tokenize it.
 """
 
-def read_lines(filename=""):
-    install_dic = {}
+def read_lines(filename="", install_dic = {}):
+
     srch_str = "install"
     with open(filename, 'r') as f:
         lines = f.readlines()
@@ -28,11 +28,12 @@ def read_lines(filename=""):
                                 install_dic[sub_words] = install_dic.get(sub_words, 0) + 1
 #        for key in install_dic:
 #            print(key, install_dic[key])
-        meaningful_info(install_dic)
-#        return (install_dic);
+        return (install_dic);
             # have this function return the dictionary
 
 if __name__ == "__main__":
     converted_files = os.listdir("./converted")
+    install_dic = {}
     for converted in converted_files:
-        read_lines("./converted/"+converted)
+        install_dic = read_lines("./converted/" + converted, install_dic)
+    meaningful_info(install_dic)
