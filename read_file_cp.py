@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 import re
 from collections import OrderedDict
+import codecs
+from meaningful_info import meaningful_info
+import os
 """
 Read dockerfile created by dummper and tokenize it.
 """
@@ -18,18 +21,20 @@ def read_lines(filename="", install_dic = {}):
                     word = str(word[0]).split(' ')
                     if len(word) > 1:
                         for sub_words in word:
+                            sub_words = sub_words.replace("\\t", "")
+                            if sub_words[0] == "-":
+                                continue
                             if sub_words is not None:
                                 install_dic[sub_words] = install_dic.get(sub_words, 0) + 1
                                 install_dic = OrderedDict(install_dic)
 
-        
         for key in install_dic:
             print(key, install_dic[key])
         return (install_dic)
-        
 
 if __name__ == "__main__":
-    install_dic = read_lines("/tmp/test")
-    print(install_dic.items())
-    install_dic = read_lines("test2", install_dic)
-    print(install_dic.items())
+    converted_files = os.listdir("./converted")
+    install_dic = {}
+    for converted in converted_files:
+        install_dic = read_lines("./converted/"+converted, install_dic)
+    meaningful_info(install_dic)
