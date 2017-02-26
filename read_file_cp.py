@@ -21,17 +21,19 @@ def read_lines(filename="", install_dic = {}):
                     word = str(word).split('&&')
                     word = str(word[0]).split(' ')
                     if len(word) > 1:
-                        for sub_words in word:
+                        for sub_words in word[:-1]:
                             sub_words = sub_words.replace("\\t", "")
-                            if sub_words[0] == "-":
-                                continue
                             if sub_words is not None:
                                 install_dic[sub_words] = install_dic.get(sub_words, 0) + 1
                                 local_dic[sub_words] = local_dic.get(sub_words, 0) + 1
                                 local_dic = OrderedDict(local_dic)
 
+        print("For Docker File '{:s}' following is the order of layer 2 packages".format(filename.split("/")[1]))
+        print("**********************************************************************************")
+        i = 0
         for key in local_dic:
-            print(key, local_dic[key])
+            print("{:d} for package {:s}".format(i, key))
+            i += 1
 
         return (install_dic)
 
