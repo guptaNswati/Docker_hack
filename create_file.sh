@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-../go/src/github.com/docker/docker/builder/dockerfile/parser/dumper/dumper ./ubuntu_dock/Dockerfile >> /tmp/test
+for i in /ubuntu_dock/*; do
+    ./go/src/github.com/docker/docker/builder/dockerfile/parser/dumper/dumper $i >> /converted/converter_$i
+done
