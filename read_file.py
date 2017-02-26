@@ -2,6 +2,7 @@
 import re
 import codecs
 from meaningful_info import meaningful_info
+import os
 """
 Read dockerfile created by dummper and tokenize it.
 """
@@ -32,4 +33,6 @@ def read_lines(filename=""):
             # have this function return the dictionary
 
 if __name__ == "__main__":
-    read_lines("/tmp/test")
+    converted_files = os.listdir("./converted")
+    for converted in converted_files:
+        read_lines("./converted/"+converted)
