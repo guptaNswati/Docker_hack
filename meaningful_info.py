@@ -16,7 +16,6 @@ def meaningful_info (install_dict):
             continue;
         except Exception as e:
             print("this is exception", e)
-#    print(packages_by_size)
     total_bytes = 0
     for package in packages:
         try:
